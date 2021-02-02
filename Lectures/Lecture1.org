@@ -1,0 +1,72 @@
+#+TITLE: Lecture 1
+# -*- org-confirm-babel-evaluate: nil -*-
+#+LATEX_HEADER: \usepackage[margin=1.0in]{geometry}
+#+LATEX_HEADER: \usepackage[numbers,sort&compress,square]{natbib}
+#+latex_header: \usepackage{glossaries}
+#+latex_header: \makeglossaries
+#+latex_header: \usepackage{setspace} \singlespacing
+#+latex_header: \usepackage{enumitem}
+#+latex_header: \setlist[itemize]{noitemsep, topsep=0pt}
+#+latex_header: \setlist[enumerate]{noitemsep, topsep=0pt}
+#+OPTIONS: \n:t toc:nil
+* Course Intro & Details
++ [[https://www.notion.so/Mathematics-of-Deep-Learning-05cd9255f03842489083ec7cbb6338d5][Course Site]]
++ Grading: 90% Project, 10% participation
++ Office Hours: Thu 9:30 am-10:30 am
++ References: Matus Telgarkis: [[https://mjt.cs.illinois.edu/courses/dlt-f20/][Theory Of DL]]
++ Concentrated on supervised learning
+
+* Supervised Learning
+** Parameters
+*** Input domain
+   X is in Higher dimensions
+ \( X \in R^d \) or X can be space of input images
+*** Data Distribution
+  \( \nu \): data distribution over X;
+  \( \nu \in P(X) \) - set of all probabilities over X
+*** Target Function f^*
+  \( X \to R\) regression task
+  Ex: X      - space of all possible molecules
+      f^*(X) - Energy of molecule x
+*** Risk/Loss function
+  \[L(f) = E_{x \gets \nu}[l(f(x), f^*(x))] \]
+  In particular,
+  \[ L(f) = E_{x \gets \nu} \lvert f(x) - f^*(x) \rvert^2 \]
+  L is convex w.r.t f
+  we can write it as \( \lvert\lvert f(x) - f^*(x) \rvert\rvert ^2_\nu \)
+** Goal: Predict target f^* from finite no of observations
+    Under the assumption observations are sample from data distribution,
+    \[\nu : \{X_i, f^*(X_i)\}_i \]
+** Empirical Risk Minification
+    Consider a hypothesis space F \( \subseteq  \{ f: X \to R \} \)
+    Assume that F is a normed space ie we can use a complexity measure \(\gamma:f \to R\)
+    \( \gamma(f) \) measures how complex the hypothesis \(f \in F is \)
+    Ex: F = class of Neural networks of a certain architecture
+    Then,
+    \[ F = \{ f: X \in R; f(x) = \Phi(w_k,x^k)+.. + \Phi(w_2,x^2) + \Phi(w_1,x) \} \]
+    \(\Phi\) : Activation function
+    Let's consider a ball,
+    \[F_\delta = \{ f \in F; \gamma(f) \subseteq \delta \} \]
+    In particular, \(F_\delta \) is a convex set
+*** Empirical Risk
+Recall  \(L(f) = E_{X \sim \nu}[l(f(x),f^*(x)] \),
+E: Expectaion, \(l\): loss function
+\[\hat{L}(f) = \frac{1}{L} \sum_{l=1}^L l(f(X_l), f^*(X_l) \]
+Ex: \(\frac{1}{L} \sum_l \lvert f(X_l) - f^*(X_l) \rvert ^2 \) for MSE
+** Structural Risk Minimization
+1. We want small empirical risk with small complexity. (simplest hypothesis to solve the problem)
+2. Minimize \(\hat{L} \) (Constrained form); \(\gamma(f) \subseteq \delta\)
+   \(\delta\)  is the complexity
+   It can be considered as a constraint optimization problem
+
+3. This can be relaxed by using a penalised form
+   \[ \min_{f \in F} \hat{L}(f) + \lambda.\gamma(f) \]
+
+4. There is another popular method which is a variance of the above 2 equations
+   \[ \min_{\hat{L}(f)=0} \gamma(f) \hspace{30} (Interpolating form) \]
+   If the observations contain true fn & no noise.
+   Find hypothesis that agrees with data & smallest complexity
+   Makes sense only when labels have no noise
+All these formulations are related to each other.
+Most Algo implementations use penalised form but we will discuss constrained method for discussing learning methods
+* Basic Decomposition of Error
