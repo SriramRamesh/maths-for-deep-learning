@@ -32,14 +32,14 @@
   \[L(f) = E_{x \gets \nu}[l(f(x), f^*(x))] \]
   In particular,
   \[ L(f) = E_{x \gets \nu} \lvert f(x) - f^*(x) \rvert^2 \]
-  L is convex w.r.t f
+  L is convex w.r.t f so that we can apply gradient descent
   we can write it as \( \lvert\lvert f(x) - f^*(x) \rvert\rvert ^2_\nu \)
 ** Goal: Predict target f^* from finite no of observations
     Under the assumption observations are sample from data distribution,
     \[\nu : \{X_i, f^*(X_i)\}_i \]
 ** Empirical Risk Minification
     Consider a hypothesis space F \( \subseteq  \{ f: X \to R \} \)
-    Assume that F is a normed space ie we can use a complexity measure \(\gamma:f \to R\)
+    Assume that F is a [[file:~/Courses/MathsForDL/References.org::Normed Vector Space][Normed space]] ie we can use a complexity measure \(\gamma:f \to R\)
     \( \gamma(f) \) measures how complex the hypothesis \(f \in F is \)
     Ex: F = class of Neural networks of a certain architecture
     Then,

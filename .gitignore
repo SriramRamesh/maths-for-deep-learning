@@ -1,0 +1,5 @@
+*.log
+*.glo
+*.ist
+/.auctex-auto/
+/**/.auctex-auto/

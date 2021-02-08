@@ -1,0 +1,16 @@
+#+TITLE: Recitation 1
+# -*- org-export-babel-evaluate: nil -*-
+
+* Review of Lec 1
+** Constants 
+we want to minimize L(f) but we can only minimize Ln(f) Empirical loss
+L(f) <= L_n(f) + *small*
+x^2 + y^2 = z^2
+rademacher complexity
+** Test Equation
+#+BEGIN_SRC latex
+\LaTeX
+\[ x^n + y^n = z^m \]
+Sum $\sum_{n=1}^{\infty} 2^{-n} = 1$ inside text
+\[ \lim_{x\to\infty} f(x) \]
+#+END_SRC

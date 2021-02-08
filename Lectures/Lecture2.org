@@ -1,0 +1,38 @@
+#+TITLE: Lecture 2 
+
+* Logistics: Final Project
+    - Group of 2-4 ppl
+    - Not a research project
+    - Review on March (1 page abstract document)
+    - Similar to ML blog post
+    
+* Recall
+- Main Goal -> Find *Good* functional spaces
+    \( \gamma(f) is small for f we care about\)
+- f: X -> R with X as high dimensional space
+- In most applications , we can use physical domain to higher
+  - ex1: X = { x: \(  \) image - > R^3 (RGB)
+  - Ex2: Time series
+    X={ x: R->R} ;; Financial time series, speech/music
+  - Ex: Solar system
+
+    X = {x:G -> R^k}
+    G - graph (V,E)
+    Usages in 
+    + Particle systems
+    + Social n/w
+    + financial n/w
+    + chemistry
+- In all these examples the high dimensional observations are hiding an underlying "low-dimensional" structure arising from
+  the physical world
+  + Q: How to leverage such structure to build models?
+   we will be refering to physics
+
+   Symmetry
+
+   A symmetry of F is an invertible transformation
+
+   T: X -> X such that \( \forall f \in F \forall x \in X \)
+   \[ f(Tx) = f(x) \]
+
+   Issue: symmetries of X(high dimensions) are hard to describe

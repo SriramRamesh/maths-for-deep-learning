@@ -1,0 +1,114 @@
+% Created 2021-02-06 Sat 09:32
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[margin=1.0in]{geometry}
+\usepackage[numbers,sort&compress,square]{natbib}
+\usepackage{glossaries}
+\makeglossaries
+\usepackage{setspace} \singlespacing
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
+\setlist[enumerate]{noitemsep, topsep=0pt}
+\date{\today}
+\title{Lecture 1}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={Lecture 1},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.1 (Org mode 9.4)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\section{Course Intro \& Details}
+\label{sec:org5c12662}
+\begin{itemize}
+\item \href{https://www.notion.so/Mathematics-of-Deep-Learning-05cd9255f03842489083ec7cbb6338d5}{Course Site}\\
+\item Grading: 90\% Project, 10\% participation\\
+\item Office Hours: Thu 9:30 am-10:30 am\\
+\item References: Matus Telgarkis: \href{https://mjt.cs.illinois.edu/courses/dlt-f20/}{Theory Of DL}\\
+\item Concentrated on supervised learning\\
+\end{itemize}
+
+\section{Supervised Learning}
+\label{sec:org83cf97d}
+\subsection{Parameters}
+\label{sec:orgdb1ab58}
+\subsubsection{Input domain}
+\label{sec:org1b76647}
+  X is in Higher dimensions\\
+\(X \in R^d\) or X can be space of input images\\
+\subsubsection{Data Distribution}
+\label{sec:org6d80636}
+\(\nu\): data distribution over X;\\
+\(\nu \in P(X)\) - set of all probabilities over X\\
+\subsubsection{Target Function f\textsuperscript{*}}
+\label{sec:orgc594cc6}
+\(X \to R\) regression task\\
+Ex: X      - space of all possible molecules\\
+    f\textsuperscript{*}(X) - Energy of molecule x\\
+\subsubsection{Risk/Loss function}
+\label{sec:org42c28b7}
+\[L(f) = E_{x \gets \nu}[l(f(x), f^*(x))] \]\\
+In particular,\\
+\[ L(f) = E_{x \gets \nu} \lvert f(x) - f^*(x) \rvert^2 \]\\
+L is convex w.r.t f so that we can apply gradient descent\\
+we can write it as \(\lvert\lvert f(x) - f^*(x) \rvert\rvert ^2_\nu\)\\
+\subsection{Goal: Predict target f\textsuperscript{*} from finite no of observations}
+\label{sec:orga62a326}
+Under the assumption observations are sample from data distribution,\\
+\[\nu : \{X_i, f^*(X_i)\}_i \]\\
+\subsection{Empirical Risk Minification}
+\label{sec:org047d3de}
+Consider a hypothesis space F \(\subseteq  \{ f: X \to R \}\)\\
+Assume that F is a \href{~/Courses/MathsForDL/References.pdf}{nil} ie we can use a complexity measure \(\gamma:f \to R\)\\
+\(\gamma(f)\) measures how complex the hypothesis \(f \in F is\)\\
+Ex: F = class of Neural networks of a certain architecture\\
+Then,\\
+\[ F = \{ f: X \in R; f(x) = \Phi(w_k,x^k)+.. + \Phi(w_2,x^2) + \Phi(w_1,x) \} \]\\
+\(\Phi\) : Activation function\\
+Let's consider a ball,\\
+\[F_\delta = \{ f \in F; \gamma(f) \subseteq \delta \} \]\\
+In particular, \(F_\delta\) is a convex set\\
+\subsubsection{Empirical Risk}
+\label{sec:org2ace4c2}
+Recall  \(L(f) = E_{X \sim \nu}[l(f(x),f^*(x)]\),\\
+E: Expectaion, \(l\): loss function\\
+\[\hat{L}(f) = \frac{1}{L} \sum_{l=1}^L l(f(X_l), f^*(X_l) \]\\
+Ex: \(\frac{1}{L} \sum_l \lvert f(X_l) - f^*(X_l) \rvert ^2\) for MSE\\
+\subsection{Structural Risk Minimization}
+\label{sec:org42d2034}
+\begin{enumerate}
+\item We want small empirical risk with small complexity. (simplest hypothesis to solve the problem)\\
+\item Minimize \(\hat{L}\) (Constrained form); \(\gamma(f) \subseteq \delta\)\\
+\(\delta\)  is the complexity\\
+It can be considered as a constraint optimization problem\\
+
+\item This can be relaxed by using a penalised form\\
+\[ \min_{f \in F} \hat{L}(f) + \lambda.\gamma(f) \]\\
+
+\item There is another popular method which is a variance of the above 2 equations\\
+\[ \min_{\hat{L}(f)=0} \gamma(f) \hspace{30} (Interpolating form) \]\\
+If the observations contain true fn \& no noise.\\
+Find hypothesis that agrees with data \& smallest complexity\\
+Makes sense only when labels have no noise\\
+\end{enumerate}
+All these formulations are related to each other.\\
+Most Algo implementations use penalised form but we will discuss constrained method for discussing learning methods\\
+\section{Basic Decomposition of Error}
+\label{sec:org5c0d82f}
+\end{document}
