@@ -1,4 +1,4 @@
-% Created 2021-02-06 Sat 09:32
+% Created 2021-02-13 Sat 14:30
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -22,6 +22,7 @@
 \usepackage{enumitem}
 \setlist[itemize]{noitemsep, topsep=0pt}
 \setlist[enumerate]{noitemsep, topsep=0pt}
+\usepackage{cancel}
 \date{\today}
 \title{Lecture 1}
 \hypersetup{
@@ -35,7 +36,7 @@
 
 \maketitle
 \section{Course Intro \& Details}
-\label{sec:org5c12662}
+\label{sec:org5a49e8b}
 \begin{itemize}
 \item \href{https://www.notion.so/Mathematics-of-Deep-Learning-05cd9255f03842489083ec7cbb6338d5}{Course Site}\\
 \item Grading: 90\% Project, 10\% participation\\
@@ -45,38 +46,38 @@
 \end{itemize}
 
 \section{Supervised Learning}
-\label{sec:org83cf97d}
+\label{sec:org7791145}
 \subsection{Parameters}
-\label{sec:orgdb1ab58}
+\label{sec:org276dcb8}
 \subsubsection{Input domain}
-\label{sec:org1b76647}
+\label{sec:org93f6ce1}
   X is in Higher dimensions\\
 \(X \in R^d\) or X can be space of input images\\
 \subsubsection{Data Distribution}
-\label{sec:org6d80636}
+\label{sec:org1e3fbac}
 \(\nu\): data distribution over X;\\
 \(\nu \in P(X)\) - set of all probabilities over X\\
 \subsubsection{Target Function f\textsuperscript{*}}
-\label{sec:orgc594cc6}
+\label{sec:org52826d3}
 \(X \to R\) regression task\\
 Ex: X      - space of all possible molecules\\
     f\textsuperscript{*}(X) - Energy of molecule x\\
 \subsubsection{Risk/Loss function}
-\label{sec:org42c28b7}
+\label{sec:orgc68642f}
 \[L(f) = E_{x \gets \nu}[l(f(x), f^*(x))] \]\\
 In particular,\\
 \[ L(f) = E_{x \gets \nu} \lvert f(x) - f^*(x) \rvert^2 \]\\
 L is convex w.r.t f so that we can apply gradient descent\\
 we can write it as \(\lvert\lvert f(x) - f^*(x) \rvert\rvert ^2_\nu\)\\
 \subsection{Goal: Predict target f\textsuperscript{*} from finite no of observations}
-\label{sec:orga62a326}
+\label{sec:org7d30851}
 Under the assumption observations are sample from data distribution,\\
 \[\nu : \{X_i, f^*(X_i)\}_i \]\\
 \subsection{Empirical Risk Minification}
-\label{sec:org047d3de}
+\label{sec:org6e4e774}
 Consider a hypothesis space F \(\subseteq  \{ f: X \to R \}\)\\
-Assume that F is a \href{~/Courses/MathsForDL/References.pdf}{nil} ie we can use a complexity measure \(\gamma:f \to R\)\\
-\(\gamma(f)\) measures how complex the hypothesis \(f \in F is\)\\
+Assume that F is a \href{file:///home/sriram/Courses/MathsForDL/References.org}{Normed space} ie we can use a complexity measure \(\gamma:f \to R\)\\
+\(\gamma(f)\) measures how complex the hypothesis \(f \in F is\) Ex: gamma can be the weights of the n/w\\
 Ex: F = class of Neural networks of a certain architecture\\
 Then,\\
 \[ F = \{ f: X \in R; f(x) = \Phi(w_k,x^k)+.. + \Phi(w_2,x^2) + \Phi(w_1,x) \} \]\\
@@ -85,30 +86,149 @@ Let's consider a ball,\\
 \[F_\delta = \{ f \in F; \gamma(f) \subseteq \delta \} \]\\
 In particular, \(F_\delta\) is a convex set\\
 \subsubsection{Empirical Risk}
-\label{sec:org2ace4c2}
+\label{sec:orgfb35c47}
 Recall  \(L(f) = E_{X \sim \nu}[l(f(x),f^*(x)]\),\\
 E: Expectaion, \(l\): loss function\\
 \[\hat{L}(f) = \frac{1}{L} \sum_{l=1}^L l(f(X_l), f^*(X_l) \]\\
 Ex: \(\frac{1}{L} \sum_l \lvert f(X_l) - f^*(X_l) \rvert ^2\) for MSE\\
 \subsection{Structural Risk Minimization}
-\label{sec:org42d2034}
+\label{sec:org632da33}
 \begin{enumerate}
-\item We want small empirical risk with small complexity. (simplest hypothesis to solve the problem)\\
-\item Minimize \(\hat{L}\) (Constrained form); \(\gamma(f) \subseteq \delta\)\\
-\(\delta\)  is the complexity\\
+\item We want small empirical risk with small complexity. (simplest\\
+hypothesis to solve the problem).\\
+\item There are 3 forms to solve this problem:\\
+\begin{enumerate}
+\item Constrained form\\
+\[ \min_{\gamma(f) \subseteq \delta} \hat{L} \]\\
+\(\gamma(f)\) is the complexity of \(f\)\\
 It can be considered as a constraint optimization problem\\
 
-\item This can be relaxed by using a penalised form\\
+\item Penalised form(Relaxation of the constraint)\\
 \[ \min_{f \in F} \hat{L}(f) + \lambda.\gamma(f) \]\\
 
-\item There is another popular method which is a variance of the above 2 equations\\
-\[ \min_{\hat{L}(f)=0} \gamma(f) \hspace{30} (Interpolating form) \]\\
+\item Interpolating Form\\
+\[ \min_{\hat{L}(f)=0} \gamma(f) \hspace{30} \]\\
+It is a variation of constrained and penalised form\\
 If the observations contain true fn \& no noise.\\
 Find hypothesis that agrees with data \& smallest complexity\\
 Makes sense only when labels have no noise\\
 \end{enumerate}
+\end{enumerate}
 All these formulations are related to each other.\\
 Most Algo implementations use penalised form but we will discuss constrained method for discussing learning methods\\
 \section{Basic Decomposition of Error}
-\label{sec:org5c0d82f}
+\label{sec:org210ce10}
+Suppose we use constrained form and assume we have found \(\hat{f}\):\\
+\[ \hat{L}(\hat{f}) \leq \min_{f \in F_\delta}\hat{L}(f) + \epsilon_o
+\ \ \ s.t \ \  \hat{f} \in F_\delta \]\\
+\subsection{How good is our \(\hat{f}\) at our Goal?}
+\label{sec:org99a0065}
+\begin{align*}
+ L(\hat{f}) - \min_{f \in F}L(f) &= L(\hat{f})
+                                   - \min_{f \in F_\delta} L(f)
+                                   + \{\min_{f \in F_\delta} L(f)
+                                   - \min_{f \in F} L(f) \} \\
+  &= \hat{L}(\hat{f}) - \min_{f \in F_\delta} L(f) +
+     L(\hat{f}) - \hat{L}(\hat{f}) + \epsilon_a \\
+  &\leq \{ \min_{f \in F_\delta}\hat{L}(\hat{f}) -
+    \min_{f \in F_\delta} L(f) \} + \{ L(\hat{f}) -
+    \hat{L}(\hat{f}) \} + \epsilon_a + \epsilon_o \\
+  &\leq \{ 2 \sup_{f \in F_\delta} \lvert L(f) - \hat{L}(f) \rvert \} +
+    \epsilon_a + epsilon_o \\
+  &\leq \epsilon_s + \epsilon_a + epsilon_o
+\end{align*}
+
+\subsubsection{Comparison of errors}
+\label{sec:org37fe096}
+\begin{itemize}
+\item Approximation Error \(\epsilon_a\)\\
+Inversely Proportional to \(\delta\)\\
+cancel due to Universal Approximation Theorem Any function can be rep by 2 layer NN.\\
+\item Statistical Error \(\epsilon_s\)\\
+Ensure that hypothesis space is not big.\\
+Deviation b/w population loss and training loss are under control.\\
+If we remove the sup and rewrite this becomes\\
+\[E_{\nu}(\] from law of large number(CLT)\\
+From stats, \(\sqrt{\frac{Complexity(\delta)}{L}}\)\\
+\item Optimization Error \(\epsilon_o\)\\
+Ensure this is less in our ML model\\
+\end{itemize}
+In terms of NN,\\
+\begin{align*}
+  \epsilon_a &= \min_{f \in F_\delta} \lvert\lvert f - f^* \rvert\rvert^2 -
+               \cancel{ \min_{f \in F} \lvert\lvert f - f^*
+               \rvert\rvert^2} \\
+  \epsilon_s &= 2 \sup_{f \in F_\delta} \lvert L(f) - \hat{L}(f) \rvert \\
+\end{align*}
+
+\section{Big Question}
+\label{sec:org52acc5c}
+\begin{itemize}
+\item How to define functional spacesF with good approximation\\
+properties in High dimns?\\
+\item Algo to solve effeciently solve ERM\\
+\item Balls \(F_\delta\) should not grow too quickly with dimns\\
+(stats error under control)\\
+\end{itemize}
+\subsection{Part I: Theory (Foundation of Geometric Deep learning)}
+\label{sec:orge36a889}
+premise in most applns, dimensionality of X is ``hiding'' an underlying low\\
+dimension structure.\\
+Ex: images \(X \in R^d\). X is also X(u), \(u \in \Omega\)\\
+Math:\\
+\begin{itemize}
+\item Harmonic Analysis\\
+\item Signal Processing\\
+\item Graph Spectral Theory\\
+\end{itemize}
+\subsection{Part II: Foundations of DL: Optimizations in DL}
+\label{sec:org11eec4d}
+Stats of fully connected NNs\\
+\section{The curse of dimensionality}
+\label{sec:org3132d6f}
+Focus: Understand how approximation/statistical/optimization error\\
+behaves as a function of input dimensionality.\\
+Imagine we are in the space and the input are stars which are very far away.\\
+
+\subsection{Statistical Curse}
+\label{sec:orgb0c6b43}
+We observe \(f^*(X_1) \cdots f^*(X_L)\)\\
+\begin{itemize}
+\item How many observations L as fn of d and hypothesis f\textsuperscript{*} ?\\
+\begin{itemize}
+\item Suppose first that f\textsuperscript{*} is linear:\\
+\(f^*(X) = <X,\theta^*>\ \ \ \theta \in R^d\)\\
+\[F = \{ f: R^d \rightarrow R; f(x)= < x,\theta > \}\]\\
+This can be solved by d samples as there d equations to be solved\\
+\item f\textsuperscript{*} is locally linear?\\
+Then it is a lipschitz function.\\
+\(\lvert f(x) - f(\tilde{x}) \rvert \leq \beta \lvert\lvert x - \tilde{x} \rvert\rvert\)\\
+Now our hypothesis space F becomes,\\
+\[F = \{ f: R^d \rightarrow R; f is Lipschitz \}\]\\
+Then our complexity of F becomes the Lipschitz constant\\
+\(\gamma(f) = Lip(f) + \lvert\lvert f \rvert\rvert_{inf}\)\\
+we want:\\
+\(\forall \epsilon > 0\), find \(f \in F\) s.t\\
+\(\lvert \lvert f - f^* \rvert\rvert_{L^2} \leq \epsilon\)\\
+L id samples \(\{ X_l, f^*(X_l)\}_l\)\\
+\begin{itemize}
+\item How large L needs to be to achieve error of \(\epsilon\) ?\\
+\(L \sim \epsilon^{-d}\)\\
+Image a cube of 1 unit.\\
+For covering a line of 1 unit with distance of \(\epsilon\),\\
+ we need to have \(\frac{1}{\epsilon}\) points. Extending for\\
+ a cube, we need to have \(\frac{1}{\epsilon^3}\) points.\\
+
+Given \((X_i, f^*(X_i))\)\\
+Our estimator can be formulated as\\
+\end{itemize}
+\[ \hat{f} = arg\min_f Lip(f) \ \ \ s.t \ \ \ f(X_i) = f^*(X_i) \forall  i\]\\
+Let us consider a point X where the closest training part in \(\bar{X}\)\\
+Then,\\
+\(\lvert \hat{f}(X) - f^*(X) \rvert \leq
+    \lvert \hat{f}(X) - \hat{f}(\bar{X}) \rvert +
+    \lvert \hat{f}(\bar{X}) - f^*(\bar{X}) \rvert +
+    \lvert f^*(\bar{X}) - f^*(X) \rvert\)\\
+\end{itemize}
+\end{itemize}
 \end{document}

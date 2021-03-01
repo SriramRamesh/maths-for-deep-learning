@@ -1,0 +1,101 @@
+#+TITLE: Lecture 4 
+
+* Recap
+- Fourier based in variants are unstable to deformations
+- Possible alt. local invariants
+* Goals
+ 1. Construct rich stable rep combining building blcoks:
+    1. local avg
+    2. wavelet filters
+    3. Point-wise non linearity
+ 2. Leading to scatrg transf
+
+* Local Average operator
+  - Domain $\Omega (= R^2 or [0,1]^2)$
+  - Consider a low pass window $h \in L^1(R^2)$ something like a gaussian blur
+    - $\int h(u) du= 1$
+    - $h(u) \geq 0$
+  - Let's consider a *dialated* verson of h
+    $h_J(u) = (2^{-J}).h(2^{-J}u)$
+    J small less blur
+    J high large blur of image
+    first term for normalsg
+    Def: Blur oprtn $A_J X = X * h_J\ \ X \in L^2(R^2)$
+    $A_J X(u) = \int X(v) h_J(u-v) dv$
+    fourier had prob figuring out when there was some outside blue
+    - Q: Is $A_J$ stable to deformations?
+      $A_J X$ vs $A_J X_{\tau}$
+      Is $\lvert\lvert A_J X -A_J X_{\tau} \rvert \rvert$ small when abs(T) is small?
+      - High Freq in Fourier domain was moving a lot 
+    $y=A_JX$ what is $\hat{y}{e} = \hat{h}_J(e).\hat(X)(e)$ fourier Transf
+    where does Fourier t/f conc $\hat{h}_J(e)=\hat{h}(2^J.e)$?
+    here we are killing high Freq to accomodate deformations
+
+    Prop: $\forall X, \lvert\lvertX\rvert\rvert = 1, \forall \tau$ deformatoin
+    \[\lvert \lvertA_J X - A_J X_{\tau} \rvert \rvert \leq c. 2^{-J} \lvert \lvert \tau \rvert \rvert_inf (sup_u \lvert \tau \rvert\]
+
+      proof: schur lemma for intg operators
+      given $X(u)$, $u\in R^2$
+
+      int oprtr
+      $Kx (u) = \int_{R^2} K(u, u') X(u') du'$
+      similar to matrix $M_y
+  - GAP
+  $\lvert \lvert A_J X - A_J X_{\tau} \rvert \rvert$ is a linear opertn
+  -- Derivation...
+
+ 
+  
+  $(A_J X - A_J X_{\tau})(u) = \int X(v) [h_J(u-v) -h_J(u-v+ \beta(v)).\lvert
+  I-\nabla \beta(v)\rvert]$
+  We apply Schur's lemma
+  If beta is small transl => the determinant is Identity I
+  *we can apply taylor series*
+  J - large derivative ? small as
+ 
+  $h_j(u-v+\beta(v)) = h_J(u-v) + < \nable h_J(u-v), \beta(v)> + O(2^{-2J} \lvert\lvert \beta \rvert \rvert)$
+
+  $\int \lvert \nable h_J(u-v), \beta(v) \rvert du \leq 2^{-J} \lvert \lvert \beta \rvert \rvert \approx 2^{-J} \lvert \lvert \tau \rvert \rvert$
+  image => blurring => is it stable wrt scale of the deformation
+
+  conclsn: As a result, the blurring oprtr is *stable* to *small* deformations
+  not restricted to transln
+
+  There are many info (which are there in high freq)lost in blurring
+  the img when we keep only the low freq
+  
+* Are there other linear trans invariant operators?
+  Let's assume $\Phi$ is linear and s.t $\Phi(X) = \Phi(X_v) \forall v$
+  ($X_v$ is a transln of X)
+  norm  measure of the group 
+  $\Phi(X) = \frac{1}{\mu(G)} \int_G \Phi(X_v) d\my(v)$
+  Takeaway:
+  1. Avg (locally) is geometrically stable
+  2. but it is the *only* linear oprtr that is geometrically stable
+If we want to complement local abg we need to intro non-linear transformation
+Blurring is stable but throws away imp info
+* Wavelet Scattering Representations
+$\Psi$ : *band pass* window in $L^2 (R^2)$ : oscillate with freq and space
+
+h: gaussian curve
+$\hat{h}$: Fourier: gaussian curve
+$\hat{\Psi}$ : Fourier : moved gaussian curve
+
+$\Psi$ :well-localised both in space and in freq
+Ex1: Haar wavelet step fn +ve and -ve
+$\Psi$ has at least one vanishing moment $\implies \hat{\Psi}(0) = 0$ which means fourier t/f is 0
+which means average is 0.
+Ex2: Gabor wavelet $\Psi(u) =  e^{i3_o.u}.h(u)$, with $h(u)$ a gaussian window
+(tech it is not a vanishing moment)
+modulation => multiply by $e^{i3_0.u}$
+$\hat{\Psi}(0) = \hat{h}(-3_o) \neq 0$
+(Morlet wavelet fixes this by subtracing)
+GAP
+
+consider a signal in 1D u can stretch it or shrink it
+In 2D we can also rotate besides dilations
+...
+
+$\Psi_{\Theta}(u) = \Psi(R_{\Theta}u)$
+
+Rotation has no effect on fourier transformation

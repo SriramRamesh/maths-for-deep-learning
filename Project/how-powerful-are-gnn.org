@@ -1,0 +1,35 @@
+#+TITLE: How powerful are GNNs?
+#+LATEX_HEADER: \usepackage{calrsfs}
+
+* Abstract
+    - effective framework for representation learning of graphs
+    - state-of-the-art on node & graph classfn
+    - discriminative power of popular GNN (GCN and GraphSAGE)
+    - Develop simple architect $\approx$ Weisfeiler-lehman graph
+      isomorphism test
+* Intro
+ - Representation learning of graph struc in (finance n/w, social)
+ - GNNs follow recursive neighborhood aggrgn(or message passing)
+   + Each node computes its new feature by aggr features of
+     neighbor
+   + After k $\implies$, we have k-hop neighborhood
+   + can be achieved by pooling
+ - design mostly based on empirical intuition & exp trial/err
+ - inspired by Weisfeiler-lehman graph isomorphism test
+   + similar to GNN, WL test iteratively updates node feature by neighbor aggrn
+   + Injective aggrn of diff node neighborhood of diff feature vectors
+ - Multiset - set with possibly repeating element
+ - GNN under-fit  training data
+ - GIN has high rep power
+* Preliminaries
+Let $G = (V,E)$ denote a graph feature $X_v$  for $v \in V$.
+There are two tasks:
+1. Node classfn
+   Goal: Learn representation vector $h_v$ of $v$ with associated
+   label $y_v$ s.t $y_v=f(h_v)$
+2. Graph classfn
+   Goal: Learn representation vector $h_G$ that predict the label of
+   entire graph $y_G = g(h_G)$ where ${G1,\cdots,G_N} \subset G$ and
+   label ${y1,\cdots,y_N} \subset Y$
+
+   $a_v^{(k)} = AGGREGATE^{(k)} \left(\left\{h_u^{(k-1)}: u \in \mathcal{N}(v) \right\}\right)$
