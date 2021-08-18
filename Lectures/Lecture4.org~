@@ -1,0 +1,47 @@
+#+TITLE: Lecture 4 
+
+* Recap
+- Fourier based in variants are unstable to deformations
+- Possible alt. local invariants
+* Goals
+ 1. Construct rich stable rep combining building blcoks:
+    1. local avg
+    2. wavelet filters
+    3. Point-wise non linearity
+ 2. Leading to scatrg transf
+
+* Local Average operator
+  - Domain $\Omega (= R^2 or [0,1]^2)$
+  - Consider a low pass window $h \in L^1(R^2)$ something like a gaussian blur
+    - $\int h(u) du= 1$
+    - $h(u) \geq 0$
+  - Let's consider a *dialated* verson of h
+    $h_J(u) = (2^{-J}).h(2^{-J}u)$
+    J small less blur
+    J high large blur of image
+    first term for normalsg
+    Def: Blur oprtn $A_J X = X * h_J\ \ X \in L^2(R^2)$
+    $A_J X(u) = \int X(v) h_J(u-v) dv$
+    fourier had prob figuring out when there was some outside blue
+    - Q: Is $A_J$ stable to deformations?
+      $A_J X$ vs $A_J X_{\tau}$
+      Is $\lvert\lvert A_J X -A_J X_{\tau} \rvert \rvert$ small when abs(T) is small?
+      - High Freq in Fourier domain was moving a lot 
+    $y=A_JX$ what is $\hat{y}{e} = \hat{h}_J(e).\hat(X)(e)$ fourier Transf
+    where does Fourier t/f conc $\hat{h}_J(e)=\hat{h}(2^J.e)$?
+    here we are killing high Freq to accomodate deformations
+
+    Prop: $\forall X, \lvert\lvertX\rvert\rvert = 1, \forall \tau$ deformatoin
+    \[\lvert \lvertA_J X - A_J X_{\tau} \rvert \rvert \leq c. 2^{-J} \lvert \lvert \tau \rvert \rvert_inf (sup_u \lvert \tau \rvert\]
+
+      proof: schur lemma for intg operators
+      given $X(u)$, $u\in R^2$
+
+      int oprtr
+      $Kx (u) = \int_{R^2} K(u, u') X(u') du'$
+      similar to matrix $M_y
+
+      --- GAP
+      
+  $\lvert \lvertA_J X - A_J X_{\tau} \rvert \rvert$ is a linear opertn
+  

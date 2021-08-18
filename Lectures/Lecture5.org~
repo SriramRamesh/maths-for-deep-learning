@@ -1,0 +1,12 @@
+#+TITLE: Scttering II
+
+* Recap 
+
+** Geo stability of smoothing oprtn $A_J$ (near var)
+** Intro to wavelet decompostition(thr littlenool-Pally trnsf) $W_J$
+** Gro Stability of $W_J$ (near equivariance)
+* Today
+** Combine all of the above into a scattering tranf: A parameter-free CNN
+** study stability of scattering
+** discuss extensions
+* 

@@ -1,0 +1,6 @@
+#+TITLE: Lecture 6
+
+
+
+* Gradient Descent for smooth convex functions
+Def: f continously differentiable is $\beta$ smooth

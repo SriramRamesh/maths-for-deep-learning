@@ -1,0 +1,4 @@
+#+TITLE: Analyzing The Expressive Power Of Graph Neural Networks In A Spectral Perspective
+
+* Abstract
+- Graph isomorphism is NP-intermediate

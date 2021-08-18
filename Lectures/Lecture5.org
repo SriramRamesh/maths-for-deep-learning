@@ -1,0 +1,61 @@
+#+TITLE: Scttering II
+#+DATE: 04/03/2021
+
+* Recap 
+
+** Geo stability of smoothing oprtn $A_J$ (near var)
+** Intro to wavelet decompostition(thr littlenool-Pally trnsf) $W_J$
+** Gro Stability of $W_J$ (near equivariance)
+* Today
+** Combine all of the above into a scattering tranf: A parameter-free CNN
+** study stability of scattering
+** discuss extensions
+* Recall wavelet decomp oprtn
+  \[ W_{J} X = { X * \Psi_{j,\theta}} \forall X \in L^2(\Omega), \ \  \Theta \in R \ \ j \rightarrow scale \in (- \inf, J) \]
+  ThM:[mallat' 10'] : $\lvert \lvert \lvert [W_J, L_T] \rvert \rvert \leq \lvert \lvert T \rvert \rvert$
+  
+  $L_T X(u) = X(u-T(u)$ , $T: \Omega \rightarrow \Omega$ is a diffeomorpohism
+
+  We look the error in different scales.
+  1. Error is small in small scales. Why?
+  \[ \tilde{W_j} X = X* \Psi_j \]
+  DIAGRAM
+  Why $\tilde{W_j}.L_T \approx L_T \tilde{W_J}$
+  deform is very smooth => constant
+  $\tau$ is super smooth, we get a transfermation
+  This property is actually transformation equivariant but it is called
+  transformation invariant in Signal processing.
+
+  When we look at a very small window, it will look like a constant
+  like a Taylor expnsn.
+
+  We care only about the neightbourhood (local). For very small interval, it becomes
+  a constant
+
+  $\tau(n)$ *looks* like a const on a sufficiently small interval of size $2^j$ 
+  Key insight:
+             A
+            / \
+           /   \
+  ____|___/_____\__
+
+  Extracting high freq info with filters with small support is stable
+
+  ------- Break
+* Recap on the ingredients we have so far
+  - $A_J$: Low pass filter at scale $2^J$ - Near invariance (linear oprtn)
+  - $W_J$: band pass filter - Near equivariance (linear oprtn)
+  - M: non linear oprtn we want to preserve the equivariance of wavelets
+    $M: L^2(\Omega) \rightarrow L^2(\Omega)$
+    The eq
+
+
+
+  -------
+  M is necessarily point wise: $(MX)(u) = \sigma (X(u))$
+  for $\sigma : R \rightarrow$ sigma is any non linear oprtn
+  Ex: MX = (X) or MX = Relu(X) / sigmoid..
+* Scattering Representation for the translation group
+  
+  
+

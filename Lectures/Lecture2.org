@@ -8,9 +8,10 @@
     
 * Recall
 - Main Goal -> Find *Good* functional spaces
-    \( \gamma(f) is small for f we care about\)
+    $\gamma(f)$ is small for f we care about
 - f: X -> R with X as high dimensional space
 - In most applications , we can use physical domain to higher
+  [[file:~/rectangle.png]]
   - ex1: X = { x: \(  \) image - > R^3 (RGB)
   - Ex2: Time series
     X={ x: R->R} ;; Financial time series, speech/music
